@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f9e8ec">
+  <title>Bir Davet | Dijital Davetiye</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/invite.css">
+</head>
+<body>
+  <div class="petal-field" id="petal-field" aria-hidden="true"></div>
+  <main class="experience">
+    <div class="top-note">SİZİ GÜZEL BİR ANIYA DAVET EDİYORUZ</div>
+    <section class="envelope-scene" id="envelope-scene" aria-label="Davetiye zarfı">
+      <div class="envelope" id="envelope">
+        <div class="envelope-back"></div>
+        <div class="letter" id="letter">
+          <div class="letter-inner">
+            <div class="tiny-flower">✿</div>
+            <p class="letter-eyebrow" id="letter-eyebrow">Bu özel günümüzde</p>
+            <h1 id="couple-names">İsimleriniz</h1>
+            <div class="ornament"><span></span> ❀ <span></span></div>
+            <p class="letter-invite" id="invite-line">Mutluluğumuzu paylaşmanız dileğiyle...</p>
+            <p class="letter-date" id="letter-date">Tarih • Saat</p>
+            <button class="text-button" id="details-button" type="button">DAVETİYENİ AÇ <span>↓</span></button>
+          </div>
+        </div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap" id="envelope-flap"></div>
+        <button class="seal" id="open-envelope" type="button" aria-label="Zarfı aç"><span>♡</span></button>
+      </div>
+      <p class="tap-hint" id="tap-hint">Mührü açmak için dokun ♡</p>
+    </section>
+
+    <section class="invitation-content" id="invitation-content" aria-hidden="true">
+      <div class="content-card">
+        <div class="corner-flower top-left">❀</div><div class="corner-flower top-right">❀</div>
+        <p class="section-kicker">BİR ÖMÜR BOYU</p>
+        <h2 id="content-names">İsimleriniz</h2>
+        <p class="intro-copy" id="event-description">Hayatımızın bu güzel başlangıcında mutluluğumuzu sizinle paylaşmak isteriz.</p>
+        <div class="date-panel">
+          <span class="date-label">BU MUTLU GÜNÜMÜZDE</span>
+          <strong id="event-date">Tarih</strong>
+          <span id="event-time">Saat</span>
+          <div class="countdown" id="countdown" hidden>
+            <div><strong id="cd-days">00</strong><span>GÜN</span></div>
+            <div><strong id="cd-hours">00</strong><span>SAAT</span></div>
+            <div><strong id="cd-minutes">00</strong><span>DAKİKA</span></div>
+            <div><strong id="cd-seconds">00</strong><span>SANİYE</span></div>
+          </div>
+        </div>
+        <div class="venue-block">
+          <span class="venue-icon">⌖</span>
+          <h3 id="venue-name">Mekân adı</h3>
+          <p id="venue-address">Mekân adresi</p>
+          <a class="outline-button" id="maps-link" href="#" target="_blank" rel="noopener">KONUMU GÖR</a>
+        </div>
+        <div class="closing-line">Sizi aramızda görmekten mutluluk duyarız.</div>
+        <div class="content-actions">
+          <button class="outline-button" id="music-toggle" type="button" aria-pressed="false">♫ MÜZİĞİ AÇ</button>
+          <a class="outline-button" id="calendar-link" href="#" target="_blank" rel="noopener">TAKVİME EKLE</a>
+        </div>
+        <p class="small-footer" id="footer-note">Sevgiyle…</p>
+        <div class="corner-flower bottom-left">❀</div><div class="corner-flower bottom-right">❀</div>
+      </div>
+      <button class="replay-button" id="replay-button" type="button">↺ Zarfı yeniden gör</button>
+    </section>
+  </main>
+  <audio id="invite-audio" preload="none" loop></audio>
+  <script src="js/invite.js"></script>
+</body>
+</html>

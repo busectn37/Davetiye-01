@@ -1,0 +1,16 @@
+{
+  "names": "İsimleriniz",
+  "eyebrow": "Bu özel günümüzde",
+  "inviteLine": "Mutluluğumuzu paylaşmanız dileğiyle...",
+  "description": "Hayatımızın bu güzel başlangıcında mutluluğumuzu sizinle paylaşmak isteriz.",
+  "date": "2027-06-12",
+  "time": "19.00",
+  "venueName": "Mekânınızın adı",
+  "venueAddress": "Mekân adresini buraya yazın",
+  "mapsUrl": "",
+  "calendarEnabled": true,
+  "musicUrl": "assets/music.mp3",
+  "footerNote": "Sevgiyle…",
+  "petalsEnabled": true,
+  "countdownEnabled": true
+}
