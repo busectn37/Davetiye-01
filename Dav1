@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buse & Samet | Davetiye</title>
+    <style>
+      :root {
+        --paper: #eef3f4;
+        --paper-2: #e3ecee;
+        --ink: #2b3a40;
+        --soft: #d9b78d;
+        --rose: #c9a37d;
+        --muted: #7a7d7f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        font-family: Georgia, "Times New Roman", serif;
+        background: linear-gradient(180deg, #edf3f5 0%, #dfe8ec 100%);
+        color: var(--ink);
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+
+      .scene {
+        perspective: 1800px;
+      }
+
+      .invite-card {
+        position: relative;
+        width: min(82vw, 420px);
+        height: min(92vw, 720px);
+        transform-style: preserve-3d;
+        cursor: pointer;
+        transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+                    filter 0.8s ease;
+        filter: drop-shadow(0 34px 42px rgba(22, 33, 42, 0.18));
+      }
+
+      .invite-card.open {
+        transform: rotateY(-150deg) translateX(10px);
+      }
+
+      .face {
+        position: absolute;
+        inset: 0;
+        border-radius: 10px;
+        backface-visibility: hidden;
+        overflow: hidden;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+      }
+
+      .front {
+        background: url("cover.jpg") center/cover no-repeat;
+        transform: rotateY(0deg);
+      }
+
+      .front::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(19, 27, 30, 0.12), rgba(19, 27, 30, 0.28)),
+          linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+      }
+
+      .front::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          125deg,
+          transparent 0 18%,
+          rgba(255,255,255,0.2) 18% 19%,
+          transparent 19% 100%
+        );
+        mix-blend-mode: screen;
+      }
+
+      .seal {
+        position: absolute;
+        left: 50%;
+        top: 56%;
+        transform: translate(-50%, -50%);
+        width: 148px;
+        height: 148px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 28%, #fbf9f5 0%, #f5f0eb 34%, #e9e1d7 100%);
+        border: 10px solid rgba(214, 196, 173, 0.8);
+        box-shadow:
+          0 10px 16px rgba(68, 73, 77, 0.15),
+          inset 0 0 14px rgba(255,255,255,0.7);
+        z-index: 2;
+      }
+
+      .seal::before {
+        content: "";
+        position: absolute;
+        inset: 16px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+        box-shadow: inset 0 0 0 1px rgba(120, 114, 108, 0.12);
+      }
+
+      .seal::after {
+        content: "";
+        position: absolute;
+        inset: 24px;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 50% 50%, transparent 0 58%, rgba(118, 104, 91, 0.15) 59% 60%, transparent 61%),
+          linear-gradient(135deg, rgba(255,255,255,0.7), rgba(0,0,0,0.02));
+        opacity: 0.5;
+      }
+
+      .seal-mark {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        z-index: 3;
+      }
+
+      .seal-mark span {
+        position: relative;
+        display: block;
+        width: 78px;
+        height: 78px;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, rgba(255,255,255,0.9) 0 54%, rgba(255,255,255,0.18) 55% 100%);
+        border: 2px solid rgba(135, 122, 110, 0.12);
+      }
+
+      .seal-mark span::before,
+      .seal-mark span::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+      }
+
+      .seal-mark span::before {
+        background:
+          radial-gradient(circle at 50% 50%, transparent 0 58%, rgba(112,95,77,0.18) 58.5% 60%, transparent 60.5%),
+          linear-gradient(90deg, transparent 0 48%, rgba(112,95,77,0.18) 49% 51%, transparent 52% 100%);
+      }
+
+      .seal-mark span::after {
+        inset: 12px;
+        background: radial-gradient(circle at 50% 50%, rgba(112,95,77,0.12) 0 70%, transparent 71%);
+      }
+
+      .back {
+        transform: rotateY(180deg);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.55), rgba(245,239,234,0.9)),
+          linear-gradient(135deg, #f5f0ea 0%, #eef1f5 100%);
+        padding: 34px 30px 26px;
+      }
+
+      .inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgba(130, 112, 89, 0.42);
+        background: rgba(255,255,255,0.12);
+        padding: 26px 18px 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .inner::before,
+      .inner::after {
+        content: "";
+        position: absolute;
+        top: 18px;
+        width: 30%;
+        height: 1px;
+        background: rgba(169, 144, 118, 0.8);
+      }
+
+      .inner::before { left: 20px; }
+      .inner::after { right: 20px; }
+
+      .ey {
+        font-size: 11px;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        color: #8f7b66;
+        margin-bottom: 18px;
+      }
+
+      .names {
+        font-size: clamp(2.2rem, 4vw, 3.2rem);
+        line-height: 1.05;
+        letter-spacing: 0.06em;
+        margin-bottom: 18px;
+        color: #2b3a40;
+      }
+
+      .meta {
+        font-size: 15px;
+        letter-spacing: 0.1em;
+        color: #53646b;
+        margin-bottom: 18px;
+      }
+
+      .text {
+        font-size: 15px;
+        line-height: 1.9;
+        color: rgba(43, 58, 64, 0.9);
+        max-width: 250px;
+      }
+
+      .date-box {
+        margin-top: 22px;
+        border-top: 1px solid rgba(169, 144, 118, 0.7);
+        border-bottom: 1px solid rgba(169, 144, 118, 0.7);
+        padding: 12px 8px;
+        width: 100%;
+        font-size: 14px;
+        line-height: 1.8;
+        letter-spacing: 0.08em;
+        color: #3e4d53;
+      }
+
+      .cta {
+        margin-top: 22px;
+        display: inline-block;
+        padding: 12px 20px;
+        border-radius: 999px;
+        text-decoration: none;
+        background: linear-gradient(135deg, #cdb08a, #b89268);
+        color: white;
+        letter-spacing: 0.14em;
+        font-size: 11px;
+        text-transform: uppercase;
+        box-shadow: 0 12px 22px rgba(183, 146, 104, 0.28);
+      }
+
+      .front .title-plate {
+        position: absolute;
+        left: 50%;
+        bottom: 32px;
+        transform: translateX(-50%);
+        width: 78%;
+        text-align: center;
+        color: rgba(255,255,255,0.95);
+        z-index: 2;
+      }
+
+      .front .title-plate .mini {
+        font-size: 11px;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
+
+      .front .title-plate .big {
+        margin-top: 12px;
+        font-size: clamp(2rem, 5vw, 3rem);
+        letter-spacing: 0.12em;
+        line-height: 1.1;
+      }
+
+      .front .title-plate .date {
+        margin-top: 10px;
+        font-size: 13px;
+        letter-spacing: 0.25em;
+        opacity: 0.95;
+      }
+
+      @media (max-width: 500px) {
+        .invite-card {
+          width: min(88vw, 380px);
+          height: min(96vw, 680px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scene">
+      <div class="invite-card" id="inviteCard">
+        <div class="face front">
+          <div class="title-plate">
+            <div class="mini">Düğün Davetiyesi</div>
+            <div class="big">Buse<br>& Samet</div>
+            <div class="date">28 EYLÜL 2027 • 19:00</div>
+          </div>
+
+          <div class="seal">
+            <div class="seal-mark"><span></span></div>
+          </div>
+        </div>
+
+        <div class="face back">
+          <div class="inner">
+            <div class="ey">Düğün Davetiyesi</div>
+            <div class="names">Buse & Samet</div>
+            <div class="meta">28 Eylül 2027 • Saat 19:00</div>
+
+            <div class="text">
+              Biz, Buse ve Samet, bu mutlu günümüzde sizleri de görmek istiyoruz.
+              Sizin varlığınız bizim için çok değerli.
+            </div>
+
+            <div class="date-box">
+              28 Eylül 2027<br />
+              Saat: 19:00<br />
+              Sevgilerimizle,<br />
+              Buse & Samet
+            </div>
+
+            <a href="#" class="cta">Katıl</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const card = document.getElementById("inviteCard");
+
+      card.addEventListener("click", () => {
+        card.classList.toggle("open");
+      });
+    </script>
+  </body>
+</html>
